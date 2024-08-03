@@ -22,7 +22,8 @@ npm install
   Start the BetaCrew mock exchange server by running the following command in the extracted folder:
 
 # Run the server application:
-``` node server.js
+```
+node server.js
 ```
 # Run the anthor client application 
 ```
