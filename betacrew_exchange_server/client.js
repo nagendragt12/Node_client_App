@@ -1,10 +1,10 @@
 const net = require('net');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const Packet = require('./packetModel'); // Import the Packet model
+const Packet = require('./packetModel');
 
 // MongoDB connection
-const mongoURI = 'mongodb://localhost:27017/betacrew'; // Update this if using MongoDB Atlas
+const mongoURI = 'mongodb://localhost:27017/betacrew'; 
 mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
@@ -38,7 +38,7 @@ client.on('error', (err) => {
 
 function parseData(data) {
     const packets = [];
-    const packetSize = 17; // Adjusted to match the correct size
+    const packetSize = 17; 
     for (let i = 0; i < data.length; i += packetSize) {
         const packet = data.slice(i, i + packetSize);
         if (packet.length < packetSize) break;
@@ -72,7 +72,7 @@ function processPackets(packets) {
             .catch(err => console.error('Error saving packet:', err));
     });
 
-    // Check for missing sequences
+    // Check for missing sequenses
     checkForMissingSequences();
 }
 
@@ -87,7 +87,7 @@ function checkForMissingSequences() {
     if (missingSequences.length > 0) {
         missingSequences.forEach(seq => {
             const resendPayload = Buffer.alloc(2);
-            resendPayload.writeUInt8(2, 0); // Call Type 2
+            resendPayload.writeUInt8(2, 0); // Call Type 2 
             resendPayload.writeUInt8(seq, 1); // Resend Sequence
             client.write(resendPayload);
         });
